@@ -1,0 +1,7 @@
+FROM node:12-buster-slim
+
+RUN apt-get update && apt-get dist-upgrade -y
+RUN apt-get install -y entr
+
+WORKDIR /home/node
+USER root

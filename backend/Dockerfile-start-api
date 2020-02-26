@@ -1,0 +1,10 @@
+FROM node:12-buster-slim
+
+RUN apt-get update && apt-get dist-upgrade -y
+COPY . /home/node
+
+USER root
+WORKDIR /home/node
+RUN npm i
+
+CMD bash -c "sleep 4 && npm start"
