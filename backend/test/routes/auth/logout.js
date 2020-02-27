@@ -1,13 +1,13 @@
 
 const supertest = require('supertest'),
       app = require('../../../src')(),
-      Utils = require('../../utils');
+      Auth = require('../../utils/Auth');
 
 const server = app.listen();
 
 module.exports = function() {
 
-  const utils = new Utils(app, server);
+  const auth = new Auth(app, server);
 
   before(async function() {
 
@@ -24,7 +24,7 @@ module.exports = function() {
 
   it('should logout a user when a user is correctly logged in', async function() {
 
-    const user = await utils.createUser();
+    const user = await auth.createUser();
 
     return supertest(server)
       .post('/auth/logout')

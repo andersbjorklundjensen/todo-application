@@ -1,13 +1,13 @@
 
 const supertest = require('supertest'),
       app = require('../../../src')(),
-      Utils = require('../../utils');
+      Auth = require('../../utils/Auth');
 
 const server = app.listen();
 
 module.exports = function() {
 
-  const utils = new Utils(app, server);
+  const auth = new Auth(app, server);
   
   before(async function() {
 
@@ -24,7 +24,7 @@ module.exports = function() {
 
   it('should login a user correctly', async function() {
 
-    const user = await utils.createUser();
+    const user = await auth.createUser();
 
     return supertest(server)
       .post('/auth/login')
@@ -35,7 +35,7 @@ module.exports = function() {
 
   it('should not login a user without a supplied username', async function() {
 
-    const user = await utils.createUser();
+    const user = await auth.createUser();
 
     return supertest(server)
       .post('/auth/login')
@@ -49,7 +49,7 @@ module.exports = function() {
 
   it('should not login a user without a supplied password', async function() {
 
-    const user = await utils.createUser();
+    const user = await auth.createUser();
 
     return supertest(server)
       .post('/auth/login')
@@ -63,7 +63,7 @@ module.exports = function() {
 
   it('should not login a user which doesnt exist', async function() {
 
-    const user = utils.constructUser();
+    const user = auth.constructUser();
 
     return supertest(server)
       .post('/auth/login')
@@ -74,7 +74,7 @@ module.exports = function() {
 
   it('should not login a user with invalid login credentials', async function() {
 
-    const user = await utils.createUser();
+    const user = await auth.createUser();
 
     return supertest(server)
       .post('/auth/login')

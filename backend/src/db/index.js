@@ -8,7 +8,8 @@ module.exports = () => {
     .createConnection(config.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
   dbConnection.model('users', require('./models/users'));
-  dbConnection.model('items', require('./models/items'));
+  dbConnection.model('projects', require('./models/projects'));
+  dbConnection.model('todos', require('./models/todos'));
 
   return dbConnection;
 

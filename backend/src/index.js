@@ -16,7 +16,8 @@ module.exports = () => {
   // Routes
   app
     .use(require('./routes/auth'))
-    .use(require('./routes/item'));
+    .use(require('./routes/projects'))
+    .use(require('./routes/todos'));
 
   return app;
 
