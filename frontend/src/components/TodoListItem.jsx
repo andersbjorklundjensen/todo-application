@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from 'react';
 import {
   ListItem,
   ListItemText,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -101,6 +101,7 @@ const TodoListItem = (props) => {
         )
       }
       <ListItemText
+        style={styles.listItemText}
         primary={props.todo.title}
       />
       <EditIcon onClick={() => onEditIconClick()} />
@@ -113,6 +114,12 @@ const TodoListItem = (props) => {
       {editingState ? (editState) : (normalState)}
     </Fragment>
   );
+};
+
+const styles = {
+  listItemText: {
+    marginLeft: '10px'
+  }
 };
 
 TodoListItem.propTypes = {

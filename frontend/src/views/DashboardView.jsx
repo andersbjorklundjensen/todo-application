@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Container,
   Grid
@@ -6,8 +6,11 @@ import {
 import TopBar from '../components/TopBar';
 import ProjectListTab from '../components/ProjectListTab';
 import TodoListTab from '../components/TodoListTab';
+import { ProjectContext } from '../contexts/ProjectContext';
 
 const DashboardView = () => {
+  const { projectContext } = useContext(ProjectContext);
+
   return (
     <div>
       <TopBar />
@@ -17,7 +20,7 @@ const DashboardView = () => {
             <ProjectListTab />
           </Grid>
           <Grid item xs={8}>
-            <TodoListTab />
+            {projectContext.currentProject && <TodoListTab />}
           </Grid>
         </Grid>        
       </Container>

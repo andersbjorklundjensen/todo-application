@@ -7,7 +7,8 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Button
+  Divider,
+  ClickAwayListener
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { AuthContext } from '../contexts/AuthContext';
@@ -60,23 +61,33 @@ const TodoListTab = () => {
       .catch((e) => console.log(e));
   };
 
+  const onAddIconClickAway = () => {
+    setTodoName('');
+    setAddingTodoState(false);
+  };
+
   return (
     <Fragment>
-      <Typography variant="h6">
+      <Typography variant="h6" style={styles.headline}>
         {projectContext.currentProjectName}
       </Typography>
       <Grid item xs={12}>
         <div>
           <List>
             {todoContext.todos && todoContext.todos.map((todo, index) => (
-              <TodoListItem key={index} todo={todo} index={index} />
+              <Fragment key={index}>
+                <TodoListItem todo={todo} index={index} />
+                <Divider />
+              </Fragment>
             ))}
             {addingTodoState ? (
-              <ListItem>
-                <form onSubmit={(e) => onAddTodoFormSubmit(e, todoName, projectContext.currentProject)}>
-                  <TextField id="standard-basic" label="Todo" value={todoName} onChange={(e) => setTodoName(e.target.value)}/>
-                </form>
-              </ListItem>
+              <ClickAwayListener onClickAway={() => onAddIconClickAway()}>
+                <ListItem>
+                  <form onSubmit={(e) => onAddTodoFormSubmit(e, todoName, projectContext.currentProject)}>
+                    <TextField id="standard-basic" label="Todo" value={todoName} onChange={(e) => setTodoName(e.target.value)}/>
+                  </form>
+                </ListItem>
+              </ClickAwayListener>
             ) : (
               <ListItem onClick={() => setAddingTodoState(true)}>
                 <ListItemIcon>
@@ -90,6 +101,12 @@ const TodoListTab = () => {
       </Grid>
     </Fragment>
   );
+};
+
+const styles = {
+  headline: {
+    marginTop: '20px'
+  }
 };
 
 export default TodoListTab;

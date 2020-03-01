@@ -5,7 +5,8 @@ import {
   ListItemIcon,
   ListItemText,
   TextField,
-  Divider
+  Divider,
+  ClickAwayListener
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ProjectListItem from '../components/ProjectListItem';
@@ -57,10 +58,17 @@ const ProjectListTab = () => {
   };
 
   const addProjectForm = (
-    <form onSubmit={(e) => onFormSubmit(e)}>
-      <TextField id="standard-basic" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)}/>
-    </form>
+    <ClickAwayListener onClickAway={() => onAddProjectClickAway()}>
+      <form onSubmit={(e) => onFormSubmit(e)}>
+        <TextField id="standard-basic" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)}/>
+      </form>
+    </ClickAwayListener>
   );
+
+  const onAddProjectClickAway = () => {
+    setProjectName('');
+    setEditingState(false);
+  };
 
   return (
     <Fragment>
