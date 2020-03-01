@@ -1,7 +1,7 @@
 # todo-app
 
 ## Description
-![screenshot](Screenshot.png)
+![screenshot](Screenshot.PNG)
 
 This is a bare-bones todo application which includes the following functionality:
 - User accounts
