@@ -26,17 +26,12 @@ module.exports = function() {
 
   });
 
-  it('should get all projects and their todos correctly', async function() {
+  it('should get all projects correctly', async function() {
 
  		const user = await auth.createUser();
 
     const project1 = await projects.createProject(user);
     const project2 = await projects.createProject(user);
-
-    const todo11 = await todos.createTodo(user, project1);
-    const todo12 = await todos.createTodo(user, project1);
-    const todo21 = await todos.createTodo(user, project2);
-    const todo22 = await todos.createTodo(user, project2);
 
     return supertest(server)
       .get('/projects')

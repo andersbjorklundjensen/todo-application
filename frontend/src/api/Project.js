@@ -1,6 +1,6 @@
 import api from '../configs/api';
 
-export default class Item {
+export default class Project {
 
   constructor(apiToken) {
     this._apiToken = apiToken;
@@ -33,28 +33,27 @@ export default class Item {
       .then((response) => response.json());
   }
 
-  getAllItems() {
-    return this._callApi('GET', '/item/all', null);
-  }
-
-  getItem(id) {
-    return this._callApi('GET', `/item/${id}`, null);
-  }
-
-  saveItem(name) {
-    return this._callApi('POST', '/item', {
+  createProject(name) {
+    return this._callApi('POST', '/projects', {
       name: name
     });
   }
 
-  editItem(id, name) {
-    return this._callApi('PUT', `/item/${id}`, {
+  getAllProjects() {
+    return this._callApi('GET', '/projects', null);
+  }
+
+  getProjectAndTodos(id) {
+    return this._callApi('GET', `/projects/${id}`, null);
+  }
+
+  editProject(id, name) {
+    return this._callApi('PUT', `/projects/${id}`, {
       name: name
     });
   }
 
-  deleteItem(id) {
-    return this._callApi('DELETE', `/item/${id}`, null);
+  deleteProject(id) {
+    return this._callApi('DELETE', `/projects/${id}`, null);
   }
-
 }

@@ -32,7 +32,7 @@ const LoginView = () => {
           token: response.token
         });
 
-        history.push('/items');
+        history.push('/dashboard');
       })
       .catch((e) => console.log(e));
   };

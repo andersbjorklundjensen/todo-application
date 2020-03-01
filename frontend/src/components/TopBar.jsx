@@ -8,10 +8,15 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
+import { ProjectContext } from '../contexts/ProjectContext';
+import { TodoContext } from '../contexts/TodoContext';
 import Auth from '../api/Auth';
 
 const TopBar = () => {
   const { authContext, authDispatch } = useContext(AuthContext);
+  const { projectDispatch } = useContext(ProjectContext);
+  const { todoDispatch } = useContext(TodoContext);
+
   const auth = new Auth(authContext.token);
 
   const history = useHistory();
@@ -22,6 +27,14 @@ const TopBar = () => {
         authDispatch({
           type: 'LOGOUT'
         });
+        
+        projectDispatch({
+          type: 'CLEAR_PROJECTS'
+        });
+
+        todoDispatch({
+          type:'CLEAR_TODOS'
+        });
 
         history.push('/login');
       })
@@ -29,7 +42,7 @@ const TopBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={styles.appBar}>
       <Grid
         container
         justify="flex-end"
@@ -45,6 +58,12 @@ const TopBar = () => {
       </Grid>
     </AppBar>
   );
+};
+
+const styles = {
+  appBar: {
+    background: '#DC4C3F'
+  }
 };
 
 export default TopBar;

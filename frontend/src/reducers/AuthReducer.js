@@ -1,4 +1,3 @@
-
 const AuthReducer = (state, action) => {
   let newState;
 
@@ -9,12 +8,12 @@ const AuthReducer = (state, action) => {
       username: action.username,
       token: action.token
     };
-    localStorage.setItem('starter-pack:auth', JSON.stringify(newState));
+    localStorage.setItem('todo-app:auth', JSON.stringify(newState));
     return newState;
       
   case 'LOGOUT':
     newState = {};
-    localStorage.removeItem('starter-pack:auth');
+    localStorage.removeItem('todo-app:auth');
     return newState;
 
   default:
