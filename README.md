@@ -26,5 +26,5 @@ This is a bare-bones todo application which includes the following functionality
 ## How to run 
 1. `git clone https://github.com/andersbjorklundjensen/todo-app.git`
 2. `npm install` in both backend and frontend folders
-3. Run the docker-compose file to start the api, in the backend folder
+3. Run `docker-compose --file docker-compose-start-api.yml up --build`, in the backend folder
 4. Run `npm start` in frontend folder
