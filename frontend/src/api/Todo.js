@@ -6,7 +6,7 @@ export default class Todo {
     this.apiToken = apiToken;
   }
 
-  _callApi(method, route, body) {
+  callApi(method, route, body) {
     // console.log(`${method} ${route} ${body}`);
 
     if (method === 'GET') {
