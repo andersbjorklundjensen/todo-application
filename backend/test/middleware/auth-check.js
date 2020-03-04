@@ -1,30 +1,24 @@
-
-const supertest = require('supertest'),
-      Auth = require('../utils/Auth'),
-      app = require('../../src')(),
-      crypto = require('crypto');
+/* globals before, after, it */
+const supertest = require('supertest');
+const crypto = require('crypto');
+const Auth = require('../utils/Auth');
+const app = require('../../src')();
 
 const server = app.listen();
 
 module.exports = function () {
-
   const auth = new Auth(app, server);
 
-  before(async function() {
-
+  before(async function () {
     await app.context.mongo.dropDatabase();
-
   });
 
-  after(async function() {
-
+  after(async function () {
     app.context.mongo.close();
     server.close();
-
   });
 
-  it('should not perform an action with a invalid auth token', async function() {
-
+  it('should not perform an action with a invalid auth token', async function () {
     const user = await auth.createUser();
 
     await supertest(server)
@@ -36,14 +30,12 @@ module.exports = function () {
       .post('/projects')
       .set('authorization', user.token)
       .send({
-        title: crypto.randomBytes.toString('hex')
+        title: crypto.randomBytes.toString('hex'),
       })
       .expect(401);
-
   });
 
-  it('should not perform an action with an auth token from a deleted account', async function() {
-
+  it('should not perform an action with an auth token from a deleted account', async function () {
     const user = await auth.createUser();
 
     await app.context.mongo.models.users.deleteOne({ username: user.username });
@@ -52,10 +44,8 @@ module.exports = function () {
       .post('/projects')
       .set('authorization', user.token)
       .send({
-        title: crypto.randomBytes.toString('hex')
+        title: crypto.randomBytes.toString('hex'),
       })
       .expect(401);
-
   });
-
-}
+};

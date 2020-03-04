@@ -1,16 +1,17 @@
+const mongoose = require('mongoose');
+const config = require('../config');
 
-const config    = require('../config'), 
-      mongoose  = require('mongoose');
+const userModel = require('./models/users');
+const projectModel = require('./models/projects');
+const todoModel = require('./models/todos');
 
 module.exports = () => {
-
   const dbConnection = mongoose
     .createConnection(config.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  dbConnection.model('users', require('./models/users'));
-  dbConnection.model('projects', require('./models/projects'));
-  dbConnection.model('todos', require('./models/todos'));
+  dbConnection.model('users', userModel);
+  dbConnection.model('projects', projectModel);
+  dbConnection.model('todos', todoModel);
 
   return dbConnection;
-
-}
+};

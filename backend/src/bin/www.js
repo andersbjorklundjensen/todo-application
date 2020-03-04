@@ -1,5 +1,4 @@
+const config = require('../config');
+const app = require('../')();
 
-const config  = require('../config'),
-      app     = require('../')();
-
-app.listen(config.PORT, () => console.log('Server listening on port ' + config.PORT));
+app.listen(config.PORT, () => console.log(`Server listening on port ${config.PORT}`));

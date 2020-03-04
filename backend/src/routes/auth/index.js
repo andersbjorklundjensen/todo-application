@@ -1,7 +1,6 @@
-
-const Router  = require('@koa/router'),
-      authCheck = require('../../middleware/auth-check'),
-      koaBody = require('koa-body')();
+const Router = require('@koa/router');
+const koaBody = require('koa-body')();
+const authCheck = require('../../middleware/auth-check');
 
 const router = new Router({ prefix: '/auth' });
 

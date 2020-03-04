@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema({
@@ -7,6 +6,6 @@ module.exports = new mongoose.Schema({
   ownerId: { type: String, required: true },
   created: { type: Number, required: true },
   projectId: { type: String, required: true },
-  doneStatus: { type: Boolean, required: true }
+  doneStatus: { type: Boolean, required: true },
 
 });

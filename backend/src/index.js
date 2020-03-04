@@ -1,10 +1,12 @@
+const Koa = require('koa');
+const cors = require('@koa/cors');
+const createDb = require('./db');
 
-const Koa     = require('koa'),
-      createDb = require('./db'),
-      cors    = require('@koa/cors');
+const authRoutes = require('./routes/auth');
+const projectRoutes = require('./routes/projects');
+const todoRoutes = require('./routes/todos');
 
 module.exports = () => {
-
   const app = new Koa();
 
   app.context.mongo = createDb();
@@ -12,13 +14,12 @@ module.exports = () => {
   // Middleware
   app
     .use(cors());
-  
+
   // Routes
   app
-    .use(require('./routes/auth'))
-    .use(require('./routes/projects'))
-    .use(require('./routes/todos'));
+    .use(authRoutes)
+    .use(projectRoutes)
+    .use(todoRoutes);
 
   return app;
-
-}
+};

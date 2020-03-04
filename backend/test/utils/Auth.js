@@ -1,36 +1,32 @@
-
-const crypto = require('crypto'),
-      supertest = require('supertest');
+const crypto = require('crypto');
+const supertest = require('supertest');
 
 class Auth {
-
   constructor(app, server) {
-    this._app = app;
-    this._server = server;
+    this.app = app;
+    this.server = server;
   }
 
-  constructUser() {
-
+  static constructUser() {
     return {
       username: crypto.randomBytes(6).toString('hex'),
       password: crypto.randomBytes(6).toString('hex'),
-      token: null
-    }
-
+      token: null,
+    };
   }
 
   async createUser() {
+    const user = Auth.constructUser();
 
-    let user = this.constructUser();
-
-    await supertest(this._server)
+    await supertest(this.server)
       .post('/auth/register')
       .send(user)
       .expect(200)
-      .then(response => user.token = response.body.token);
+      .then((response) => {
+        user.token = response.body.token;
+      });
 
     return user;
-
   }
 }
 

@@ -1,9 +1,7 @@
-
 /* globals describe */
 
-describe('Middlewares', function() {
+const authCheckMiddleware = require('./auth-check');
 
-  describe('auth-check.js - Checks login status', require('./auth-check'));
-
+describe('Middlewares', function () {
+  describe('auth-check.js - Checks login status', authCheckMiddleware);
 });
-

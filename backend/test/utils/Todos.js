@@ -1,42 +1,37 @@
-
-const crypto = require('crypto'),
-  supertest = require('supertest');
+const crypto = require('crypto');
+const supertest = require('supertest');
 
 class Todos {
-
   constructor(app, server) {
-    this._app = app;
-    this._server = server;
+    this.app = app;
+    this.server = server;
   }
 
-  constructTodo(project) {
-
+  static constructTodo(project) {
     return {
       id: null,
       title: crypto.randomBytes(6).toString('hex'),
       ownerId: null,
       created: null,
       projectId: project.id,
-      doneStatus: false
-    }
-
+      doneStatus: false,
+    };
   }
 
   async createTodo(user, project) {
+    const todo = Todos.constructTodo(project);
 
-    let todo = this.constructTodo(project);
-
-    await supertest(this._server)
+    await supertest(this.server)
       .post('/todos')
       .send(todo)
       .set('authorization', user.token)
       .expect(200)
-      .then((response) => todo.id = response.body.todoId);
+      .then((response) => {
+        todo.id = response.body.todoId;
+      });
 
     return todo;
-
   }
-
 }
 
 module.exports = Todos;
