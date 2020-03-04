@@ -1,59 +1,59 @@
+/* globals fetch */
 import api from '../configs/api';
 
 export default class Project {
-
   constructor(apiToken) {
-    this._apiToken = apiToken;
+    this.apiToken = apiToken;
   }
 
-  _callApi(method, route, body) {
-    //console.log(`${method} ${route} ${body}`);
-    
+  callApi(method, route, body) {
+    // console.log(`${method} ${route} ${body}`);
+
     if (method === 'GET') {
       return fetch(`${api.API_URL}${route}`, {
-        method: method,
+        method,
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': this._apiToken
-        }
+          Authorization: this.apiToken,
+        },
       })
         .then((response) => response.json());
-    } 
+    }
 
     return fetch(`${api.API_URL}${route}`, {
-      method: method,
+      method,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': this._apiToken
+        Authorization: this.apiToken,
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     })
       .then((response) => response.json());
   }
 
   createProject(name) {
-    return this._callApi('POST', '/projects', {
-      name: name
+    return this.callApi('POST', '/projects', {
+      name,
     });
   }
 
   getAllProjects() {
-    return this._callApi('GET', '/projects', null);
+    return this.callApi('GET', '/projects', null);
   }
 
   getProjectAndTodos(id) {
-    return this._callApi('GET', `/projects/${id}`, null);
+    return this.callApi('GET', `/projects/${id}`, null);
   }
 
   editProject(id, name) {
-    return this._callApi('PUT', `/projects/${id}`, {
-      name: name
+    return this.callApi('PUT', `/projects/${id}`, {
+      name,
     });
   }
 
   deleteProject(id) {
-    return this._callApi('DELETE', `/projects/${id}`, null);
+    return this.callApi('DELETE', `/projects/${id}`, null);
   }
 }
