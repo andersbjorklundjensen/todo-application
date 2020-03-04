@@ -34,6 +34,7 @@ const ProjectListTab = () => {
 
       }))
       .catch((e) => console.log(e));
+     // eslint-disable-next-line
   }, []);
 
   const onAddIconClick = () => {

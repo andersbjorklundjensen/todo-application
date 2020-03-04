@@ -42,6 +42,7 @@ const TodoListTab = () => {
 
       }))
       .catch((e) => console.log(e));
+     // eslint-disable-next-line
   }, [projectContext.currentProject]);
 
   const onAddTodoFormSubmit = (e, title, projectId) => {
