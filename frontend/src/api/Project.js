@@ -1,4 +1,3 @@
-/* globals fetch */
 import api from '../configs/api';
 
 export default class Project {

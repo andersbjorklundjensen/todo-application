@@ -4,7 +4,7 @@ import AuthReducer from '../reducers/AuthReducer';
 
 export const AuthContext = createContext();
 
-const AuthContextProvider = (props) => {
+const AuthContextProvider = ({ children }) => {
   const [authContext, authDispatch] = useReducer(AuthReducer, {}, () => {
     const authData = localStorage.getItem('todo-app:auth');
     return authData ? JSON.parse(authData) : {};
@@ -12,13 +12,13 @@ const AuthContextProvider = (props) => {
 
   return (
     <AuthContext.Provider value={{ authContext, authDispatch }}>
-      {props.children} 
+      {children}
     </AuthContext.Provider>
   );
 };
 
 AuthContextProvider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 export default AuthContextProvider;

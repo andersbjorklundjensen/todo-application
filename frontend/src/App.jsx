@@ -9,20 +9,18 @@ import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import DashboardView from './views/DashboardView';
 
-const App = () => {
-  return (
-    <AuthContextProvider>
-      <ProjectContextProvider>
-        <TodoContextProvider>
-          <Router>
-            <Route path="/login" component={LoginView} exact />
-            <Route path="/register" component={RegisterView} exact />
-            <ProtectedRoute path="/dashboard" component={DashboardView} exact />
-          </Router>
-        </TodoContextProvider>
-      </ProjectContextProvider>
-    </AuthContextProvider>
-  );
-};
+const App = () => (
+  <AuthContextProvider>
+    <ProjectContextProvider>
+      <TodoContextProvider>
+        <Router>
+          <Route path="/login" component={LoginView} exact />
+          <Route path="/register" component={RegisterView} exact />
+          <ProtectedRoute path="/dashboard" component={DashboardView} exact />
+        </Router>
+      </TodoContextProvider>
+    </ProjectContextProvider>
+  </AuthContextProvider>
+);
 
 export default App;

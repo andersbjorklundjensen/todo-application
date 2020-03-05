@@ -1,4 +1,3 @@
-/* globals localStorage */
 const ProjectReducer = (state, action) => {
   let newState;
 

@@ -1,5 +1,3 @@
-/* globals localStorage */
-
 const AuthReducer = (state, action) => {
   let newState;
 

@@ -5,10 +5,10 @@ import TodoReducer from '../reducers/TodoReducer';
 export const TodoContext = createContext();
 
 const initialState = {
-  todos: []
+  todos: [],
 };
 
-const TodoContextProvider = (props) => {
+const TodoContextProvider = ({ children }) => {
   const [todoContext, todoDispatch] = useReducer(TodoReducer, initialState, () => {
     const todoData = localStorage.getItem('todo-app:todo');
     return todoData ? JSON.parse(todoData) : initialState;
@@ -16,13 +16,13 @@ const TodoContextProvider = (props) => {
 
   return (
     <TodoContext.Provider value={{ todoContext, todoDispatch }}>
-      {props.children} 
+      {children}
     </TodoContext.Provider>
   );
 };
 
 TodoContextProvider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 export default TodoContextProvider;

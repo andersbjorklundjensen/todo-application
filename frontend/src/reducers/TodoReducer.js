@@ -1,4 +1,3 @@
-/* globals localStorage */
 const TodoReducer = (state, action) => {
   let newState;
 
