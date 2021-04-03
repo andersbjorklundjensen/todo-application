@@ -1,4 +1,4 @@
-expectconst is = require('is_js');
+const is = require('is_js');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const util = require('util');
