@@ -1,0 +1,11 @@
+FROM node:12-buster-slim
+
+RUN apt-get update && apt-get dist-upgrade -y
+
+RUN mkdir -p /backend
+WORKDIR /backend
+
+COPY package.json /backend
+RUN npm install 
+
+COPY . /backend
