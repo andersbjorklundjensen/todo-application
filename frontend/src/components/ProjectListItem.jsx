@@ -65,13 +65,13 @@ const ProjectListItem = (props) => {
   const editState = (
     <ListItem>
       <form onSubmit={(e) => onSubmitEditForm(e, props.project.id, projectName)}>
-        <TextField id="standard-basic" label="Standard" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
+        <TextField id="editProjectInput" label="Standard" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ListItem>
   );
 
   const normalState = (
-    <ListItem 
+    <ListItem
       button
       selected={projectContext.currentProject === props.project.id}
       onClick={() => onProjectClick(props.index, props.project.id, props.project.name)}
@@ -79,8 +79,8 @@ const ProjectListItem = (props) => {
       <ListItemText
         primary={props.project.name}
       />
-      <EditIcon onClick={() => onEditIconClick()} />
-      <DeleteIcon onClick={() => onDeleteIconClick(props.project.id)} />
+      <EditIcon id="editProjectButton" onClick={() => onEditIconClick()} />
+      <DeleteIcon id="deleteProjectButton" onClick={() => onDeleteIconClick(props.project.id)} />
     </ListItem>
   );
 

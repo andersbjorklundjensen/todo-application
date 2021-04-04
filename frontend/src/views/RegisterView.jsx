@@ -83,6 +83,7 @@ const RegisterView = () => {
             variant="contained"
             color="primary"
             style={styles.signInButton}
+            id="submitButton"
           >
             Sign up
           </Button>
