@@ -39,21 +39,22 @@ const ProjectListItem = (props) => {
     })
   };
 
-  const onSubmitEditForm = (e, id, name) => {
+  const onEditProjectFormSubmit = async (e, id, name) => {
     e.preventDefault();
-
-    projectApiWrapper.editProject(id, name)
-      .then(() => projectDispatch({
-
-        type: 'EDIT_PROJECT',
-        id: id,
-        name: name
-
-      }))
+    await projectApiWrapper.editProject(id, name)
       .catch((e) => console.log(e));
 
+    editProjectInContext(id, name)
     setEditingState(false);
   };
+
+  const editProjectInContext = (id, name) => {
+    projectDispatch({
+      type: 'EDIT_PROJECT',
+      id: id,
+      name: name
+    });
+  }
 
   const setCurrentProjectInContext = (projectId, projectName) => {
     projectDispatch({
@@ -65,7 +66,7 @@ const ProjectListItem = (props) => {
 
   const editState = (
     <ListItem>
-      <form onSubmit={(e) => onSubmitEditForm(e, props.project.id, projectName)}>
+      <form onSubmit={async (e) => await onEditProjectFormSubmit(e, props.project.id, projectName)}>
         <TextField id="editProjectInput" label="Standard" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ListItem>
