@@ -24,8 +24,6 @@ const LoginView = () => {
 
     auth.loginUser(username, password)
       .then((response) => {
-        console.log(response);
-
         authDispatch({
           type: 'LOGIN',
           username: username,
