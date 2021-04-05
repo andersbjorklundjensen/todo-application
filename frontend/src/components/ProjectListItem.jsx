@@ -29,15 +29,14 @@ const ProjectListItem = (props) => {
     setProjectName(props.project.name);
   };
 
-  const onDeleteIconClick = (id) => {
-    projectApiWrapper.deleteProject(id)
-      .then(() => projectDispatch({
-
-        type: 'DELETE_PROJECT',
-        id: id
-
-      }))
+  const onDeleteIconClick = async (id) => {
+    await projectApiWrapper.deleteProject(id)
       .catch((e) => console.log(e));
+
+    projectDispatch({
+      type: 'DELETE_PROJECT',
+      id: id
+    })
   };
 
   const onSubmitEditForm = (e, id, name) => {
@@ -82,7 +81,10 @@ const ProjectListItem = (props) => {
         primary={props.project.name}
       />
       <EditIcon id="editProjectButton" onClick={() => onEditIconClick()} />
-      <DeleteIcon id="deleteProjectButton" onClick={() => onDeleteIconClick(props.project.id)} />
+      <DeleteIcon
+        id="deleteProjectButton"
+        onClick={async () => await onDeleteIconClick(props.project.id)}
+      />
     </ListItem>
   );
 
