@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
-import Project from '../api/Project';
+import ProjectApiWrapper from '../api/Project';
 
 const ProjectListItem = (props) => {
   const [editingState, setEditingState] = useState(false);
@@ -18,16 +18,10 @@ const ProjectListItem = (props) => {
   const { authContext } = useContext(AuthContext);
   const { projectContext, projectDispatch } = useContext(ProjectContext);
 
-  const project = new Project(authContext.token);
+  const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
-  const onProjectClick = (index, projectId, projectName) => {
-    projectDispatch({
-
-      type: 'SET_CURRENT_PROJECT',
-      currentProject: projectId,
-      currentProjectName: projectName
-
-    });
+  const onProjectItemClick = (projectId, projectName) => {
+    setCurrentProjectInContext(projectId, projectName);
   };
 
   const onEditIconClick = () => {
@@ -35,36 +29,44 @@ const ProjectListItem = (props) => {
     setProjectName(props.project.name);
   };
 
-  const onDeleteIconClick = (id) => {
-    project.deleteProject(id)
-      .then(() => projectDispatch({
-
-        type: 'DELETE_PROJECT',
-        id: id
-
-      }))
+  const onDeleteIconClick = async (id) => {
+    await projectApiWrapper.deleteProject(id)
       .catch((e) => console.log(e));
+
+    projectDispatch({
+      type: 'DELETE_PROJECT',
+      id: id
+    })
   };
 
-  const onSubmitEditForm = (e, id, name) => {
+  const onEditProjectFormSubmit = async (e, id, name) => {
     e.preventDefault();
-
-    project.editProject(id, name)
-      .then(() => projectDispatch({
-
-        type: 'EDIT_PROJECT',
-        id: id,
-        name: name
-
-      }))
+    await projectApiWrapper.editProject(id, name)
       .catch((e) => console.log(e));
 
+    editProjectInContext(id, name)
     setEditingState(false);
   };
 
+  const editProjectInContext = (id, name) => {
+    projectDispatch({
+      type: 'EDIT_PROJECT',
+      id: id,
+      name: name
+    });
+  }
+
+  const setCurrentProjectInContext = (projectId, projectName) => {
+    projectDispatch({
+      type: 'SET_CURRENT_PROJECT',
+      currentProject: projectId,
+      currentProjectName: projectName
+    });
+  }
+
   const editState = (
     <ListItem>
-      <form onSubmit={(e) => onSubmitEditForm(e, props.project.id, projectName)}>
+      <form onSubmit={async (e) => await onEditProjectFormSubmit(e, props.project.id, projectName)}>
         <TextField id="editProjectInput" label="Standard" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ListItem>
@@ -74,13 +76,16 @@ const ProjectListItem = (props) => {
     <ListItem
       button
       selected={projectContext.currentProject === props.project.id}
-      onClick={() => onProjectClick(props.index, props.project.id, props.project.name)}
+      onClick={() => onProjectItemClick(props.project.id, props.project.name)}
       key={props.index}>
       <ListItemText
         primary={props.project.name}
       />
       <EditIcon id="editProjectButton" onClick={() => onEditIconClick()} />
-      <DeleteIcon id="deleteProjectButton" onClick={() => onDeleteIconClick(props.project.id)} />
+      <DeleteIcon
+        id="deleteProjectButton"
+        onClick={async () => await onDeleteIconClick(props.project.id)}
+      />
     </ListItem>
   );
 
