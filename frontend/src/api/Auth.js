@@ -1,6 +1,6 @@
 import api from '../configs/api';
 
-export default class Auth {
+export default class AuthenticationApiWrapper {
   constructor(apiToken) {
     this.apiToken = apiToken;
   }
