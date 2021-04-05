@@ -24,14 +24,6 @@ const ProjectListItem = (props) => {
     setCurrentProjectInContext(projectId, projectName);
   };
 
-  const setCurrentProjectInContext = (projectId, projectName) => {
-    projectDispatch({
-      type: 'SET_CURRENT_PROJECT',
-      currentProject: projectId,
-      currentProjectName: projectName
-    });
-  }
-
   const onEditIconClick = () => {
     setEditingState(true);
     setProjectName(props.project.name);
@@ -63,6 +55,14 @@ const ProjectListItem = (props) => {
 
     setEditingState(false);
   };
+
+  const setCurrentProjectInContext = (projectId, projectName) => {
+    projectDispatch({
+      type: 'SET_CURRENT_PROJECT',
+      currentProject: projectId,
+      currentProjectName: projectName
+    });
+  }
 
   const editState = (
     <ListItem>
