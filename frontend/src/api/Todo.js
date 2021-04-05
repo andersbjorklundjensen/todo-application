@@ -1,6 +1,6 @@
 import api from '../configs/api';
 
-export default class Todo {
+export default class TodoApiWrapper {
   constructor(apiToken) {
     this.apiToken = apiToken;
   }
