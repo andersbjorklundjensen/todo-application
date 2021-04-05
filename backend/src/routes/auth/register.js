@@ -1,6 +1,6 @@
 const is = require('is_js');
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const util = require('util');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');

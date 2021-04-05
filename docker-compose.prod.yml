@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports: 
+      - "80:80"
+    restart: always
+    networks:
+      - todo-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    command: npm run start
+    networks:
+      - todo-network
+    ports:
+      - 4000:4000
+    environment: 
+      - MONGO_URI=mongodb://mongo/todo-app
+      - JWT_SECRET=EbghPGqURlGkhnHIjO4EJwVOC+jenZN/dawAidUCt7g7PeWg4TrrfEhJtZBm0hjRe2i7R9K7YKZ+2N4M+OmtI/3Or31NtFiI/izgAt4oZ6w7Cos+xN8AzA0OyEDuihLE/YGtKSB9BWvxvA2OECYv2DOqozGOX3zKvZ3IT45N0zB5NcFFWXb4mkK/hJ/lH8x/Llfq6LfOo4Z9jIL/UuRYXtTIjvI4qDgH+PVZ56CCSLHmCe7WxUzwHhQS4oOdDzDp0mEo5iKpa9xFWtbAozoiPlrp3YhB3sDScD8tDznM/lSkOHfBMUe5s7WSwzxTAVkDiJZsUX5W4eIfoRCWamYIOQ==
+
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - todo-network
+
+networks: 
+  todo-network:

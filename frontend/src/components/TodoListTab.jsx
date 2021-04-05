@@ -74,7 +74,7 @@ const TodoListTab = () => {
       </Typography>
       <Grid item xs={12}>
         <div>
-          <List>
+          <List id="todoList">
             {todoContext.todos && todoContext.todos.map((todo, index) => (
               <Fragment key={index}>
                 <TodoListItem todo={todo} index={index} />
@@ -85,12 +85,12 @@ const TodoListTab = () => {
               <ClickAwayListener onClickAway={() => onAddIconClickAway()}>
                 <ListItem>
                   <form onSubmit={(e) => onAddTodoFormSubmit(e, todoName, projectContext.currentProject)}>
-                    <TextField id="standard-basic" label="Todo" value={todoName} onChange={(e) => setTodoName(e.target.value)}/>
+                    <TextField id="todoInput" label="Todo" value={todoName} onChange={(e) => setTodoName(e.target.value)}/>
                   </form>
                 </ListItem>
               </ClickAwayListener>
             ) : (
-              <ListItem onClick={() => setAddingTodoState(true)}>
+              <ListItem id="addTodoButton" onClick={() => setAddingTodoState(true)}>
                 <ListItemIcon>
                   <AddIcon />
                 </ListItemIcon>

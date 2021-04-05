@@ -86,7 +86,7 @@ const TodoListItem = (props) => {
   const editState = (
     <ListItem>
       <form onSubmit={(e) => onSubmitEditForm(e, title, props.todo.id, props.todo.doneStatus, projectContext.currentProject)}>
-        <TextField id="standard-basic" label="Standard" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <TextField id="editTodoInput" label="Standard" value={title} onChange={(e) => setTitle(e.target.value)} />
       </form>
     </ListItem>
   );
@@ -104,8 +104,8 @@ const TodoListItem = (props) => {
         style={styles.listItemText}
         primary={props.todo.title}
       />
-      <EditIcon onClick={() => onEditIconClick()} />
-      <DeleteIcon onClick={() => onDeleteIconClick(props.todo.id)} />
+      <EditIcon id="editTodoButton" onClick={() => onEditIconClick()} />
+      <DeleteIcon id="deleteTodoButton" onClick={() => onDeleteIconClick(props.todo.id)} />
     </ListItem>
   );
 

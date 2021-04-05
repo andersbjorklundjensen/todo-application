@@ -61,7 +61,7 @@ const ProjectListTab = () => {
   const addProjectForm = (
     <ClickAwayListener onClickAway={() => onAddProjectClickAway()}>
       <form onSubmit={(e) => onFormSubmit(e)}>
-        <TextField id="standard-basic" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)}/>
+        <TextField id="projectNameInput" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)}/>
       </form>
     </ClickAwayListener>
   );
@@ -76,11 +76,11 @@ const ProjectListTab = () => {
       <ListItem>
         <ListItemText primary="Projects" />
         <ListItemIcon>
-          <AddIcon  onClick={() => onAddIconClick()}/>
+          <AddIcon id="addProjectButton" onClick={() => onAddIconClick()}/>
         </ListItemIcon>
       </ListItem>
       <Divider />
-      <List component="div" disablePadding>
+      <List id="projectList" component="div" disablePadding>
         {projectContext.projects && projectContext.projects.map((project, index) => (
           <ProjectListItem key={index} project={project} index={index} />
         ))}

@@ -2,7 +2,7 @@ const is = require('is_js');
 const jwt = require('jsonwebtoken');
 const util = require('util');
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const config = require('../../config');
 
 const jwtSign = util.promisify(jwt.sign);

@@ -53,6 +53,7 @@ const TopBar = () => {
           </Typography>
           <Button 
             color="inherit" 
+            id="logoutButton"
             onClick={() => onLogoutClick()}>Logout</Button>
         </Toolbar>
       </Grid>

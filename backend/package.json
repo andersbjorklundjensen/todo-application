@@ -9,19 +9,19 @@
   "scripts": {
     "start": "node src/bin/www.js",
     "test": "node_modules/mocha/bin/mocha",
-    "coverage": "node_modules/nyc/bin/nyc.js node_modules/mocha/bin/mocha -s 5000 -t 10000 --recursive --check-leaks --full-trace --exit"
+    "coverage": "node_modules/nyc/bin/nyc.js node_modules/mocha/bin/mocha -s 5000 -t 10000 --watch --recursive --check-leaks --full-trace --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.0.0",
     "@koa/router": "^8.0.8",
-    "bcrypt": "^4.0.0",
+    "bcryptjs": "^2.4.3",
     "is_js": "^0.9.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.10.0",
     "koa-body": "^4.1.1",
-    "mongoose": "^5.7.7",
+    "mongoose": "^5.12.3",
     "supertest": "^4.0.2"
   },
   "devDependencies": {

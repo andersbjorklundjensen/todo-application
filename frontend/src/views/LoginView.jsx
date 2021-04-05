@@ -81,6 +81,7 @@ const LoginView = () => {
             fullWidth
             variant="contained"
             color="primary"
+            id="loginButton"
             style={styles.signInButton}
           >
             Sign in
