@@ -21,14 +21,16 @@ const ProjectListItem = (props) => {
   const project = new Project(authContext.token);
 
   const onProjectItemClick = (projectId, projectName) => {
-    projectDispatch({
+    setCurrentProjectInContext(projectId, projectName);
+  };
 
+  const setCurrentProjectInContext = (projectId, projectName) => {
+    projectDispatch({
       type: 'SET_CURRENT_PROJECT',
       currentProject: projectId,
       currentProjectName: projectName
-
     });
-  };
+  }
 
   const onEditIconClick = () => {
     setEditingState(true);
