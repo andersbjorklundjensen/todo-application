@@ -1,6 +1,6 @@
 import api from '../configs/api';
 
-export default class Project {
+export default class ProjectApiWrapper {
   constructor(apiToken) {
     this.apiToken = apiToken;
   }
