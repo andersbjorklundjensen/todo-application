@@ -14,19 +14,13 @@ export default class AuthenticationApiWrapper {
   callApi(method, route, body) {
     // console.log(`${method} ${route} ${body}`);
 
-    if (body === null) {
-      return fetch(`${api.API_URL}${route}`, {
-        method,
-        headers: this.headers,
-      })
-        .then((response) => response.json());
-    }
-
-    return fetch(`${api.API_URL}${route}`, {
+    const options = {
       method,
       headers: this.headers,
-      body: JSON.stringify(body),
-    })
+      body: body ? JSON.stringify(body): null
+    }
+
+    return fetch(`${api.API_URL}${route}`, options)
       .then((response) => response.json());
   }
 
