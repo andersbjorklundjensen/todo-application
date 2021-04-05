@@ -20,7 +20,7 @@ const ProjectListItem = (props) => {
 
   const project = new Project(authContext.token);
 
-  const onProjectItemClick = (index, projectId, projectName) => {
+  const onProjectItemClick = (projectId, projectName) => {
     projectDispatch({
 
       type: 'SET_CURRENT_PROJECT',
@@ -74,7 +74,7 @@ const ProjectListItem = (props) => {
     <ListItem
       button
       selected={projectContext.currentProject === props.project.id}
-      onClick={() => onProjectItemClick(props.index, props.project.id, props.project.name)}
+      onClick={() => onProjectItemClick(props.project.id, props.project.name)}
       key={props.index}>
       <ListItemText
         primary={props.project.name}
