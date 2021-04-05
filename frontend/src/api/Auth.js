@@ -3,6 +3,12 @@ import api from '../configs/api';
 export default class AuthenticationApiWrapper {
   constructor(apiToken) {
     this.apiToken = apiToken;
+
+    this.headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: this.apiToken,
+    }
   }
 
   callApi(method, route, body) {
@@ -11,22 +17,14 @@ export default class AuthenticationApiWrapper {
     if (body === null) {
       return fetch(`${api.API_URL}${route}`, {
         method,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: this.apiToken,
-        },
+        headers: this.headers,
       })
         .then((response) => response.json());
     }
 
     return fetch(`${api.API_URL}${route}`, {
       method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: this.apiToken,
-      },
+      headers: this.headers,
       body: JSON.stringify(body),
     })
       .then((response) => response.json());
