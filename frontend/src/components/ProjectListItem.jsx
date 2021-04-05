@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
-import Project from '../api/Project';
+import ProjectApiWrapper from '../api/Project';
 
 const ProjectListItem = (props) => {
   const [editingState, setEditingState] = useState(false);
@@ -18,7 +18,7 @@ const ProjectListItem = (props) => {
   const { authContext } = useContext(AuthContext);
   const { projectContext, projectDispatch } = useContext(ProjectContext);
 
-  const project = new Project(authContext.token);
+  const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
   const onProjectItemClick = (projectId, projectName) => {
     setCurrentProjectInContext(projectId, projectName);
@@ -30,7 +30,7 @@ const ProjectListItem = (props) => {
   };
 
   const onDeleteIconClick = (id) => {
-    project.deleteProject(id)
+    projectApiWrapper.deleteProject(id)
       .then(() => projectDispatch({
 
         type: 'DELETE_PROJECT',
@@ -43,7 +43,7 @@ const ProjectListItem = (props) => {
   const onSubmitEditForm = (e, id, name) => {
     e.preventDefault();
 
-    project.editProject(id, name)
+    projectApiWrapper.editProject(id, name)
       .then(() => projectDispatch({
 
         type: 'EDIT_PROJECT',
