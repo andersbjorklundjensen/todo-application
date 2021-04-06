@@ -20,7 +20,7 @@ const ProjectListTab = () => {
   const [editingState, setEditingState] = useState(false);
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectDispatch, projectContextAPI } = useContext(ProjectContext);
+  const { projectContext, projectContextAPI } = useContext(ProjectContext);
 
   const project = new Project(authContext.token);
 
@@ -37,26 +37,20 @@ const ProjectListTab = () => {
     setEditingState(true);
   };
 
-  const onAddProjectFormSubmit = (e) => {
+  const onAddProjectFormSubmit = async (e) => {
     e.preventDefault();
 
-    project
-      .createProject(projectName)
-      .then((response) => projectDispatch({
-
-        type: 'ADD_PROJECT',
-        id: response.projectId,
-        name: projectName
-
-      }))
-      .then(() => setEditingState(false))
-      .then(() => setProjectName(''))
+    const response = await project.createProject(projectName)
       .catch((e) => console.log(e));
+
+    projectContextAPI.addProject(response.projectId, projectName)
+    setEditingState(false)
+    setProjectName('')
   };
 
   const addProjectForm = (
     <ClickAwayListener onClickAway={() => onAddProjectClickAway()}>
-      <form onSubmit={(e) => onAddProjectFormSubmit(e)}>
+      <form onSubmit={async (e) => await onAddProjectFormSubmit(e)}>
         <TextField id="projectNameInput" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ClickAwayListener>

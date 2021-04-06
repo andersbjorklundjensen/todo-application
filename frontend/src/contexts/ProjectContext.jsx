@@ -16,6 +16,13 @@ const ProjectContextProvider = ({ children }) => {
   });
 
   const projectContextAPI = {
+    addProject: (id, name) => {
+      projectDispatch({
+        type: 'ADD_PROJECT',
+        id,
+        name
+      })
+    },
     deleteProject: (id) => {
       projectDispatch({
         type: 'DELETE_PROJECT',
