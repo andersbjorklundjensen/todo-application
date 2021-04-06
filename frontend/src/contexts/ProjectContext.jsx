@@ -15,8 +15,31 @@ const ProjectContextProvider = ({ children }) => {
     return projectData ? JSON.parse(projectData) : initialState;
   });
 
+  const projectContextAPI = {
+    deleteProject: (id) => {
+      projectDispatch({
+        type: 'DELETE_PROJECT',
+        id: id
+      })
+    },
+    editProject: (id, name) => {
+      projectDispatch({
+        type: 'EDIT_PROJECT',
+        id: id,
+        name: name
+      });
+    },
+    setCurrentProject: (projectId, projectName) => {
+      projectDispatch({
+        type: 'SET_CURRENT_PROJECT',
+        currentProject: projectId,
+        currentProjectName: projectName
+      });
+    },
+  }
+
   return (
-    <ProjectContext.Provider value={{ projectContext, projectDispatch }}>
+    <ProjectContext.Provider value={{ projectContext, projectDispatch, projectContextAPI }}>
       {children}
     </ProjectContext.Provider>
   );

@@ -16,12 +16,12 @@ const ProjectListItem = (props) => {
   const [projectName, setProjectName] = useState('');
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectDispatch } = useContext(ProjectContext);
+  const { projectContext, projectContextAPI } = useContext(ProjectContext);
 
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
   const onProjectItemClick = (projectId, projectName) => {
-    setCurrentProjectInContext(projectId, projectName);
+    projectContextAPI.setCurrentProject(projectId, projectName);
   };
 
   const onEditIconClick = () => {
@@ -33,10 +33,7 @@ const ProjectListItem = (props) => {
     await projectApiWrapper.deleteProject(id)
       .catch((e) => console.log(e));
 
-    projectDispatch({
-      type: 'DELETE_PROJECT',
-      id: id
-    })
+    projectContextAPI.deleteProject(id);
   };
 
   const onEditProjectFormSubmit = async (e, id, name) => {
@@ -44,25 +41,9 @@ const ProjectListItem = (props) => {
     await projectApiWrapper.editProject(id, name)
       .catch((e) => console.log(e));
 
-    editProjectInContext(id, name)
+    projectContextAPI.editProject(id, name);
     setEditingState(false);
   };
-
-  const editProjectInContext = (id, name) => {
-    projectDispatch({
-      type: 'EDIT_PROJECT',
-      id: id,
-      name: name
-    });
-  }
-
-  const setCurrentProjectInContext = (projectId, projectName) => {
-    projectDispatch({
-      type: 'SET_CURRENT_PROJECT',
-      currentProject: projectId,
-      currentProjectName: projectName
-    });
-  }
 
   const editState = (
     <ListItem>
