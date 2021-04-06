@@ -21,7 +21,7 @@ const ProjectListItem = (props) => {
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
   const onProjectItemClick = (projectId, projectName) => {
-    setCurrentProjectInContext(projectId, projectName);
+    projectContextAPI.setCurrentProject(projectId, projectName);
   };
 
   const onEditIconClick = () => {
@@ -44,14 +44,6 @@ const ProjectListItem = (props) => {
     projectContextAPI.editProject(id, name);
     setEditingState(false);
   };
-
-  const setCurrentProjectInContext = (projectId, projectName) => {
-    projectDispatch({
-      type: 'SET_CURRENT_PROJECT',
-      currentProject: projectId,
-      currentProjectName: projectName
-    });
-  }
 
   const editState = (
     <ListItem>
