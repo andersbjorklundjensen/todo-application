@@ -16,7 +16,7 @@ const ProjectListItem = (props) => {
   const [projectName, setProjectName] = useState('');
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectDispatch } = useContext(ProjectContext);
+  const { projectContext, projectDispatch, projectContextAPI } = useContext(ProjectContext);
 
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
@@ -33,10 +33,7 @@ const ProjectListItem = (props) => {
     await projectApiWrapper.deleteProject(id)
       .catch((e) => console.log(e));
 
-    projectDispatch({
-      type: 'DELETE_PROJECT',
-      id: id
-    })
+    projectContextAPI.deleteProject(id);
   };
 
   const onEditProjectFormSubmit = async (e, id, name) => {
