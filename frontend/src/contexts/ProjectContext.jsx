@@ -28,7 +28,14 @@ const ProjectContextProvider = ({ children }) => {
         id: id,
         name: name
       });
-    }
+    },
+    setCurrentProject: (projectId, projectName) => {
+      projectDispatch({
+        type: 'SET_CURRENT_PROJECT',
+        currentProject: projectId,
+        currentProjectName: projectName
+      });
+    },
   }
 
   return (
