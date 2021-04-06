@@ -22,6 +22,13 @@ const ProjectContextProvider = ({ children }) => {
         id: id
       })
     },
+    editProject: (id, name) => {
+      projectDispatch({
+        type: 'EDIT_PROJECT',
+        id: id,
+        name: name
+      });
+    }
   }
 
   return (
