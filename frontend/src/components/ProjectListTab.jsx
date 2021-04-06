@@ -20,48 +20,38 @@ const ProjectListTab = () => {
   const [editingState, setEditingState] = useState(false);
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectDispatch } = useContext(ProjectContext);
+  const { projectContext, projectContextAPI } = useContext(ProjectContext);
 
   const project = new Project(authContext.token);
 
   useEffect(() => {
-    project
-      .getAllProjects()
-      .then((response) => projectDispatch({
+    (async () => {
+      const response = await project.getAllProjects()
+        .catch((e) => console.log(e));
 
-        type: 'SET_PROJECTS',
-        projects: response.projects
-
-      }))
-      .catch((e) => console.log(e));
-     // eslint-disable-next-line
+      projectContextAPI.setProjects(response.projects);
+    })();
   }, []);
 
   const onAddIconClick = () => {
     setEditingState(true);
   };
 
-  const onFormSubmit = (e) => {
+  const onAddProjectFormSubmit = async (e) => {
     e.preventDefault();
 
-    project
-      .createProject(projectName)
-      .then((response) => projectDispatch({
-
-        type: 'ADD_PROJECT',
-        id: response.projectId,
-        name: projectName
-
-      }))
-      .then(() => setEditingState(false))
-      .then(() => setProjectName(''))
+    const response = await project.createProject(projectName)
       .catch((e) => console.log(e));
+
+    projectContextAPI.addProject(response.projectId, projectName)
+    setEditingState(false)
+    setProjectName('')
   };
 
   const addProjectForm = (
     <ClickAwayListener onClickAway={() => onAddProjectClickAway()}>
-      <form onSubmit={(e) => onFormSubmit(e)}>
-        <TextField id="projectNameInput" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)}/>
+      <form onSubmit={async (e) => await onAddProjectFormSubmit(e)}>
+        <TextField id="projectNameInput" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ClickAwayListener>
   );
@@ -76,7 +66,7 @@ const ProjectListTab = () => {
       <ListItem>
         <ListItemText primary="Projects" />
         <ListItemIcon>
-          <AddIcon id="addProjectButton" onClick={() => onAddIconClick()}/>
+          <AddIcon id="addProjectButton" onClick={() => onAddIconClick()} />
         </ListItemIcon>
       </ListItem>
       <Divider />
