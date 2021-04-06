@@ -41,17 +41,9 @@ const ProjectListItem = (props) => {
     await projectApiWrapper.editProject(id, name)
       .catch((e) => console.log(e));
 
-    editProjectInContext(id, name)
+    projectContextAPI.editProject(id, name);
     setEditingState(false);
   };
-
-  const editProjectInContext = (id, name) => {
-    projectDispatch({
-      type: 'EDIT_PROJECT',
-      id: id,
-      name: name
-    });
-  }
 
   const setCurrentProjectInContext = (projectId, projectName) => {
     projectDispatch({
