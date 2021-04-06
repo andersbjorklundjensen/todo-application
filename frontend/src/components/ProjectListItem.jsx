@@ -16,7 +16,7 @@ const ProjectListItem = (props) => {
   const [projectName, setProjectName] = useState('');
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectDispatch, projectContextAPI } = useContext(ProjectContext);
+  const { projectContext, projectContextAPI } = useContext(ProjectContext);
 
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
