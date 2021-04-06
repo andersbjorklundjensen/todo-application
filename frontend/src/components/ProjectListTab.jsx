@@ -37,7 +37,7 @@ const ProjectListTab = () => {
     setEditingState(true);
   };
 
-  const onFormSubmit = (e) => {
+  const onAddProjectFormSubmit = (e) => {
     e.preventDefault();
 
     project
@@ -56,7 +56,7 @@ const ProjectListTab = () => {
 
   const addProjectForm = (
     <ClickAwayListener onClickAway={() => onAddProjectClickAway()}>
-      <form onSubmit={(e) => onFormSubmit(e)}>
+      <form onSubmit={(e) => onAddProjectFormSubmit(e)}>
         <TextField id="projectNameInput" label="Project name" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ClickAwayListener>
