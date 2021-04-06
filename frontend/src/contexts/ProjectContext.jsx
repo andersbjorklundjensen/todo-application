@@ -36,6 +36,12 @@ const ProjectContextProvider = ({ children }) => {
         currentProjectName: projectName
       });
     },
+    setProjects: (projects) => {
+      projectDispatch({
+        type: 'SET_PROJECTS',
+        projects
+      })
+    }
   }
 
   return (
