@@ -61,6 +61,10 @@ const ProjectListTab = () => {
     setEditingState(false);
   };
 
+  const onProjectItemClick = (projectId, projectName) => {
+    projectContextAPI.setCurrentProject(projectId, projectName);
+  };
+
   return (
     <Fragment>
       <ListItem>
@@ -72,7 +76,9 @@ const ProjectListTab = () => {
       <Divider />
       <List id="projectList" component="div" disablePadding>
         {projectContext.projects && projectContext.projects.map((project, index) => (
-          <ProjectListItem key={index} project={project} index={index} />
+          <ProjectListItem
+            onProjectItemClick={onProjectItemClick}
+            key={index} project={project} index={index} />
         ))}
       </List>
       <Fragment>

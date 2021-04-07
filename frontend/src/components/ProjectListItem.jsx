@@ -20,10 +20,6 @@ const ProjectListItem = (props) => {
 
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
-  const onProjectItemClick = (projectId, projectName) => {
-    projectContextAPI.setCurrentProject(projectId, projectName);
-  };
-
   const onEditIconClick = () => {
     setEditingState(true);
     setProjectName(props.project.name);
@@ -57,7 +53,7 @@ const ProjectListItem = (props) => {
     <ListItem
       button
       selected={projectContext.currentProject === props.project.id}
-      onClick={() => onProjectItemClick(props.project.id, props.project.name)}
+      onClick={() => props.onProjectItemClick(props.project.id, props.project.name)}
       key={props.index}>
       <ListItemText
         primary={props.project.name}
