@@ -78,7 +78,11 @@ const ProjectListTab = () => {
         {projectContext.projects && projectContext.projects.map((project, index) => (
           <ProjectListItem
             onClick={() => onProjectItemClick(project.id, project.name)}
-            key={index} project={project} index={index} />
+            selected={projectContext.currentProject === project.id}
+            key={index}
+            project={project}
+            index={index}
+          />
         ))}
       </List>
       <Fragment>

@@ -11,12 +11,12 @@ import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 import ProjectApiWrapper from '../api/Project';
 
-const ProjectListItem = ({ project, onClick, index }) => {
+const ProjectListItem = ({ project, onClick, index, selected }) => {
   const [editingState, setEditingState] = useState(false);
   const [projectName, setProjectName] = useState('');
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectContextAPI } = useContext(ProjectContext);
+  const { projectContextAPI } = useContext(ProjectContext);
 
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
@@ -52,7 +52,7 @@ const ProjectListItem = ({ project, onClick, index }) => {
   const normalState = (
     <ListItem
       button
-      selected={projectContext.currentProject === project.id}
+      selected={selected}
       onClick={() => onClick()}
       key={index}>
       <ListItemText
