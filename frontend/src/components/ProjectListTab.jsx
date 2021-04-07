@@ -77,7 +77,7 @@ const ProjectListTab = () => {
       <List id="projectList" component="div" disablePadding>
         {projectContext.projects && projectContext.projects.map((project, index) => (
           <ProjectListItem
-            onProjectItemClick={onProjectItemClick}
+            onProjectItemClick={() => onProjectItemClick(project.id, project.name)}
             key={index} project={project} index={index} />
         ))}
       </List>

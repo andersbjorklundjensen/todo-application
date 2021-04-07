@@ -53,7 +53,7 @@ const ProjectListItem = ({ project, onProjectItemClick, index }) => {
     <ListItem
       button
       selected={projectContext.currentProject === project.id}
-      onClick={() => onProjectItemClick(project.id, project.name)}
+      onClick={() => onProjectItemClick()}
       key={index}>
       <ListItemText
         primary={project.name}
