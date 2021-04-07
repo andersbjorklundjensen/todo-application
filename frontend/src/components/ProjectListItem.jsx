@@ -11,7 +11,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 import ProjectApiWrapper from '../api/Project';
 
-const ProjectListItem = ({ project, onProjectItemClick, index }) => {
+const ProjectListItem = ({ project, onClick, index }) => {
   const [editingState, setEditingState] = useState(false);
   const [projectName, setProjectName] = useState('');
 
@@ -53,7 +53,7 @@ const ProjectListItem = ({ project, onProjectItemClick, index }) => {
     <ListItem
       button
       selected={projectContext.currentProject === project.id}
-      onClick={() => onProjectItemClick()}
+      onClick={() => onClick()}
       key={index}>
       <ListItemText
         primary={project.name}
