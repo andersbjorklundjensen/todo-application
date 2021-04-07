@@ -11,7 +11,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 import ProjectApiWrapper from '../api/Project';
 
-const ProjectListItem = (props) => {
+const ProjectListItem = ({ project, onProjectItemClick, index }) => {
   const [editingState, setEditingState] = useState(false);
   const [projectName, setProjectName] = useState('');
 
@@ -22,7 +22,7 @@ const ProjectListItem = (props) => {
 
   const onEditIconClick = () => {
     setEditingState(true);
-    setProjectName(props.project.name);
+    setProjectName(project.name);
   };
 
   const onDeleteIconClick = async (id) => {
@@ -43,7 +43,7 @@ const ProjectListItem = (props) => {
 
   const editState = (
     <ListItem>
-      <form onSubmit={async (e) => await onEditProjectFormSubmit(e, props.project.id, projectName)}>
+      <form onSubmit={async (e) => await onEditProjectFormSubmit(e, project.id, projectName)}>
         <TextField id="editProjectInput" label="Standard" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ListItem>
@@ -52,16 +52,16 @@ const ProjectListItem = (props) => {
   const normalState = (
     <ListItem
       button
-      selected={projectContext.currentProject === props.project.id}
-      onClick={() => props.onProjectItemClick(props.project.id, props.project.name)}
-      key={props.index}>
+      selected={projectContext.currentProject === project.id}
+      onClick={() => onProjectItemClick(project.id, project.name)}
+      key={index}>
       <ListItemText
-        primary={props.project.name}
+        primary={project.name}
       />
       <EditIcon id="editProjectButton" onClick={() => onEditIconClick()} />
       <DeleteIcon
         id="deleteProjectButton"
-        onClick={async () => await onDeleteIconClick(props.project.id)}
+        onClick={async () => await onDeleteIconClick(project.id)}
       />
     </ListItem>
   );
