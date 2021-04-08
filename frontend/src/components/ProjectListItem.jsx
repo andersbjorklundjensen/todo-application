@@ -11,22 +11,18 @@ import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 import ProjectApiWrapper from '../api/Project';
 
-const ProjectListItem = (props) => {
+const ProjectListItem = ({ project, onClick, index, selected }) => {
   const [editingState, setEditingState] = useState(false);
   const [projectName, setProjectName] = useState('');
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectContextAPI } = useContext(ProjectContext);
+  const { projectContextAPI } = useContext(ProjectContext);
 
   const projectApiWrapper = new ProjectApiWrapper(authContext.token);
 
-  const onProjectItemClick = (projectId, projectName) => {
-    projectContextAPI.setCurrentProject(projectId, projectName);
-  };
-
   const onEditIconClick = () => {
     setEditingState(true);
-    setProjectName(props.project.name);
+    setProjectName(project.name);
   };
 
   const onDeleteIconClick = async (id) => {
@@ -47,7 +43,7 @@ const ProjectListItem = (props) => {
 
   const editState = (
     <ListItem>
-      <form onSubmit={async (e) => await onEditProjectFormSubmit(e, props.project.id, projectName)}>
+      <form onSubmit={async (e) => await onEditProjectFormSubmit(e, project.id, projectName)}>
         <TextField id="editProjectInput" label="Standard" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
       </form>
     </ListItem>
@@ -56,16 +52,16 @@ const ProjectListItem = (props) => {
   const normalState = (
     <ListItem
       button
-      selected={projectContext.currentProject === props.project.id}
-      onClick={() => onProjectItemClick(props.project.id, props.project.name)}
-      key={props.index}>
+      selected={selected}
+      onClick={() => onClick()}
+      key={index}>
       <ListItemText
-        primary={props.project.name}
+        primary={project.name}
       />
       <EditIcon id="editProjectButton" onClick={() => onEditIconClick()} />
       <DeleteIcon
         id="deleteProjectButton"
-        onClick={async () => await onDeleteIconClick(props.project.id)}
+        onClick={async () => await onDeleteIconClick(project.id)}
       />
     </ListItem>
   );
