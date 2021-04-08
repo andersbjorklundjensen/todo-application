@@ -7,13 +7,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 
-const ProjectListItem = ({ project, onClick, onEditIconClick, onDeleteIconClick, index, selected }) => {
+const ProjectListItem = ({ project, onClick, onEditIconClick, onDeleteIconClick, selected }) => {
   return (
     <ListItem
       button
       selected={selected}
       onClick={() => onClick()}
-      key={index}>
+    >
       <ListItemText
         primary={project.name}
       />
@@ -28,7 +28,6 @@ const ProjectListItem = ({ project, onClick, onEditIconClick, onDeleteIconClick,
 
 ProjectListItem.propTypes = {
   project: PropTypes.object,
-  index: PropTypes.number
 };
 
 export default ProjectListItem;

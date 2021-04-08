@@ -29,11 +29,11 @@ const ProjectList = () => {
       {projectContext.projects && projectContext.projects.map((project, index) => (
         <ProjectListItem
           onClick={() => onProjectItemClick(project.id, project.name)}
+          onEditIconClick={() => {}}
           onDeleteIconClick={() => onDeleteIconClick(project.id)}
           selected={projectContext.currentProject === project.id}
           key={index}
           project={project}
-          index={index}
         />
       ))}
     </List>
