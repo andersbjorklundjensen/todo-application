@@ -11,7 +11,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
 import ProjectApiWrapper from '../api/Project';
 
-const ProjectListItem = ({ project, onClick, index, selected }) => {
+const ProjectListItem = ({ project, onClick, onDeleteIconClick, index, selected }) => {
   const [editingState, setEditingState] = useState(false);
   const [projectName, setProjectName] = useState('');
 
@@ -23,13 +23,6 @@ const ProjectListItem = ({ project, onClick, index, selected }) => {
   const onEditIconClick = () => {
     setEditingState(true);
     setProjectName(project.name);
-  };
-
-  const onDeleteIconClick = async (id) => {
-    await projectApiWrapper.deleteProject(id)
-      .catch((e) => console.log(e));
-
-    projectContextAPI.deleteProject(id);
   };
 
   const onEditProjectFormSubmit = async (e, id, name) => {
