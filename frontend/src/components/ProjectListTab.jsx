@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import {
-  List,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -9,18 +8,17 @@ import {
   ClickAwayListener
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import ProjectListItem from '../components/ProjectListItem';
 import Project from '../api/Project';
 import { AuthContext } from '../contexts/AuthContext';
 import { ProjectContext } from '../contexts/ProjectContext';
+import ProjectList from './ProjectList';
 
 const ProjectListTab = () => {
   const [projectName, setProjectName] = useState('');
-
   const [editingState, setEditingState] = useState(false);
 
   const { authContext } = useContext(AuthContext);
-  const { projectContext, projectContextAPI } = useContext(ProjectContext);
+  const { projectContextAPI } = useContext(ProjectContext);
 
   const project = new Project(authContext.token);
 
@@ -61,10 +59,6 @@ const ProjectListTab = () => {
     setEditingState(false);
   };
 
-  const onProjectItemClick = (projectId, projectName) => {
-    projectContextAPI.setCurrentProject(projectId, projectName);
-  };
-
   return (
     <Fragment>
       <ListItem>
@@ -74,17 +68,7 @@ const ProjectListTab = () => {
         </ListItemIcon>
       </ListItem>
       <Divider />
-      <List id="projectList" component="div" disablePadding>
-        {projectContext.projects && projectContext.projects.map((project, index) => (
-          <ProjectListItem
-            onClick={() => onProjectItemClick(project.id, project.name)}
-            selected={projectContext.currentProject === project.id}
-            key={index}
-            project={project}
-            index={index}
-          />
-        ))}
-      </List>
+      <ProjectList />
       <Fragment>
         {editingState && (addProjectForm)}
       </Fragment>
