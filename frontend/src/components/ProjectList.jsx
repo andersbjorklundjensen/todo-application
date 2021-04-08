@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState } from 'react';
 import {
   List,
+  TextField
 } from '@material-ui/core';
 import ProjectListItem from '../components/ProjectListItem';
 import { ProjectContext } from '../contexts/ProjectContext';
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const ProjectList = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [modalProjectName, setModalProjectName] = useState('');
   const { projectContext, projectContextAPI } = useContext(ProjectContext);
   const { authContext } = useContext(AuthContext);
 
@@ -36,6 +38,15 @@ const ProjectList = () => {
   const onProjectItemClick = (projectId, projectName) => {
     projectContextAPI.setCurrentProject(projectId, projectName);
   };
+
+  const onEditProjectFormSubmit = async (e, id, name) => {
+    e.preventDefault();
+    await projectApiWrapper.editProject(id, name)
+      .catch((e) => console.log(e));
+
+    projectContextAPI.editProject(id, name);
+    setOpen(false);
+  }
 
   const onDeleteIconClick = async (id) => {
     await projectApiWrapper.deleteProject(id)
@@ -47,13 +58,12 @@ const ProjectList = () => {
   return (
     <List id="projectList" component="div" disablePadding>
       {projectContext.projects && projectContext.projects.map((project, index) => (
-        <Fragment>
+        <Fragment key={index}>
           <ProjectListItem
             onClick={() => onProjectItemClick(project.id, project.name)}
             onEditIconClick={() => setOpen(true)}
             onDeleteIconClick={() => onDeleteIconClick(project.id)}
             selected={projectContext.currentProject === project.id}
-            key={index}
             project={project}
           />
           <Modal
@@ -71,6 +81,9 @@ const ProjectList = () => {
             <Fade in={open}>
               <div className={classes.paper}>
                 <h2 id="transition-modal-title">{project.name}</h2>
+                <form onSubmit={(e) => onEditProjectFormSubmit(e, project.id, modalProjectName)}>
+                  <TextField label="Project name" value={modalProjectName} onChange={(e) => setModalProjectName(e.target.value)} />
+                </form>
               </div>
             </Fade>
           </Modal>
